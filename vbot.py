@@ -55,7 +55,7 @@ def run_iteration(driver, page_name: str, item_name: str) -> None:
     except Exception:
         driver.execute_script("arguments[0].click();", button)
 
-    time.sleep(5)
+    time.sleep(10)
     driver.quit()
 
 def main() -> None:
@@ -76,6 +76,7 @@ def main() -> None:
 
                 run_iteration(driver, args.page_name, args.item_name)
                 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Vote submitted.")
+
             except WebDriverException as e:
                 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] WebDriver error: {e}")
             except Exception as e:
