@@ -1,22 +1,39 @@
 #!/bin/bash
 # https://www.gregbrisebois.com/posts/chromedriver-in-wsl2/
 
+
+# Check if Python 3 is already installed
+if command -v python3 >/dev/null 2>&1; then
+    echo "Python 3 is already installed: $(python3 --version)"
+else
+    echo "Python 3 not found. Starting installation..."
+
+    # Check if Homebrew is installed, install if not
+    if ! command -v brew >/dev/null 2>&1; then
+        echo "Homebrew not found. Installing Homebrew first..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        
+        # Add Homebrew to PATH for the current session (for ARM Macs/Apple Silicon)
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+
+    # Install Python 3 using Homebrew
+    echo "Installing Python 3 via Homebrew..."
+    brew install python
+fi
+
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python3 get-pip.py
+
+pip install --upgrade selenium
+
 if command -v brew >/dev/null 2>&1; then
     echo "Homebrew is installed"
-    
-    brew install google-chrome
+
     brew install --cask chromedriver
 
 else
     echo "Homebrew is NOT installed"
-
-    temp=$TMPDIR$(uuidgen)
-    mkdir -p $temp/mount
-    curl https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg > $temp/1.dmg
-    yes | hdiutil attach -noverify -nobrowse -mountpoint $temp/mount $temp/1.dmg
-    cp -r $temp/mount/*.app /Applications
-    hdiutil detach $temp/mount
-    rm -r $temp
 
     if [[ $(uname -m) == 'arm64' ]]; then
         echo "Running natively on Apple Silicon (arm64)"
