@@ -40,6 +40,8 @@ def run_iteration(driver, page_name: str, item_name: str) -> None:
     except Exception:
         driver.execute_script("arguments[0].click();", radio)
 
+    time.sleep(args.interval * 15)
+
     button = wait.until(EC.element_to_be_clickable((
         By.XPATH,
         "//button[normalize-space()='Abstimmen']"
