@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+# https://www.gregbrisebois.com/posts/chromedriver-in-wsl2/
 
 if [[ $(uname -m) == 'arm64' ]]; then
     echo "Running natively on Apple Silicon (arm64)"
