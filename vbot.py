@@ -53,8 +53,7 @@ def run_iteration(driver, page_name: str, item_name: str) -> None:
     except Exception:
         driver.execute_script("arguments[0].click();", button)
 
-    
-
+    driver.quit()
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Periodically vote on a web page.")
@@ -62,8 +61,6 @@ def main() -> None:
     parser.add_argument("--page_name", required=True, help="URL of the page to open")
     parser.add_argument("--item_name", required=True, help="Name/value/id/label of the radio button to select")
     args = parser.parse_args()
-
-    
 
     try:
         while True:
@@ -73,6 +70,7 @@ def main() -> None:
                 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] ChromeOptions")
                 driver = webdriver.Chrome(options=options)
                 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Chrome")
+
                 run_iteration(driver, args.page_name, args.item_name)
                 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Vote submitted.")
             except WebDriverException as e:
