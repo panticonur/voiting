@@ -63,11 +63,13 @@ def main() -> None:
 
     options = webdriver.ChromeOptions()
     options.add_argument("--start-maximized")
+    print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] ChromeOptions")
     driver = webdriver.Chrome(options=options)
-
+    print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Chrome")
     try:
         while True:
             try:
+                print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] run_iteration")
                 run_iteration(driver, args.page_name, args.item_name)
                 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Vote submitted.")
             except WebDriverException as e:
