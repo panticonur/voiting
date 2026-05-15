@@ -53,6 +53,7 @@ def run_iteration(driver, page_name: str, item_name: str) -> None:
     except Exception:
         driver.execute_script("arguments[0].click();", button)
 
+    time.sleep(args.interval * 10)
     driver.quit()
 
 def main() -> None:
