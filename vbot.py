@@ -40,7 +40,7 @@ def run_iteration(driver, page_name: str, item_name: str) -> None:
     except Exception:
         driver.execute_script("arguments[0].click();", radio)
 
-    time.sleep(args.interval * 5)
+    time.sleep(5)
 
     button = wait.until(EC.element_to_be_clickable((
         By.XPATH,
@@ -55,7 +55,7 @@ def run_iteration(driver, page_name: str, item_name: str) -> None:
     except Exception:
         driver.execute_script("arguments[0].click();", button)
 
-    time.sleep(args.interval * 10)
+    time.sleep(5)
     driver.quit()
 
 def main() -> None:
