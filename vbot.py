@@ -10,8 +10,8 @@ from selenium.common.exceptions import WebDriverException
 
 def run_iteration(driver, page_name: str, item_name: str) -> None:
     driver.get(page_name)
-    wait = WebDriverWait(driver, 20)
-
+    wait = WebDriverWait(driver, 10)
+    
     radio_locators = [
         (By.CSS_SELECTOR, f"input[type='radio'][name='{item_name}']"),
         (By.CSS_SELECTOR, f"input[type='radio'][value='{item_name}']"),
@@ -69,10 +69,11 @@ def main() -> None:
         while True:
             try:
                 options = webdriver.ChromeOptions()
-                options.add_argument("--start-maximized")
+                # options.add_argument("--headless")
                 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] ChromeOptions")
                 driver = webdriver.Chrome(options=options)
                 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Chrome")
+                driver.set_window_position(-1100, 0)
 
                 run_iteration(driver, args.page_name, args.item_name)
                 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Vote submitted.")
