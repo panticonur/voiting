@@ -10,7 +10,7 @@ from selenium.common.exceptions import WebDriverException
 
 def run_iteration(driver, page_name: str, item_name: str) -> None:
     driver.get(page_name)
-    wait = WebDriverWait(driver, 10)
+    wait = WebDriverWait(driver, 20)
     
     radio_locators = [
         (By.CSS_SELECTOR, f"input[type='radio'][name='{item_name}']"),
@@ -55,7 +55,7 @@ def run_iteration(driver, page_name: str, item_name: str) -> None:
     except Exception:
         driver.execute_script("arguments[0].click();", button)
 
-    time.sleep(10)
+    time.sleep(5)
     driver.quit()
 
 def main() -> None:
@@ -73,7 +73,7 @@ def main() -> None:
                 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] ChromeOptions")
                 driver = webdriver.Chrome(options=options)
                 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Chrome")
-                driver.set_window_position(-1100, 0)
+                driver.set_window_position(-500, 0)
 
                 run_iteration(driver, args.page_name, args.item_name)
                 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Vote submitted.")
