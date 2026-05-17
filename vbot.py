@@ -77,7 +77,7 @@ def main() -> None:
     
     parser = argparse.ArgumentParser(description="Periodically vote on a web page.")
     parser.add_argument("--interval", type=float, required=True, help="Interval between iterations, in minutes")
-    parser.add_argument("--move_window", type=float, required=True, help="Nove Chrome left or right")
+    parser.add_argument("--move_window", type=float, required=True, help="Move Chrome left or right")
     args = parser.parse_args()
     
     try:
