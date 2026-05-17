@@ -72,13 +72,14 @@ def run_iteration(driver, page_name: str, item_name: str) -> None:
     driver.quit()
 
 def main() -> None:
+    page_name = "https://tafel-oesterreich.at/voting-2026/"
+    item_name = "Integrationstreffen 50+ (Neki)"
+    
     parser = argparse.ArgumentParser(description="Periodically vote on a web page.")
     parser.add_argument("--interval", type=float, required=True, help="Interval between iterations, in minutes")
     parser.add_argument("--move_window", type=float, required=True, help="Nove Chrome left or right")
-    parser.add_argument("--page_name", required=True, help="URL of the page to open")
-    parser.add_argument("--item_name", required=True, help="Name/value/id/label of the radio button to select")
     args = parser.parse_args()
-
+    
     try:
         while True:
             try:
@@ -88,7 +89,7 @@ def main() -> None:
                 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Open Chrome")
                 driver.set_window_position(args.move_window, 0)
 
-                run_iteration(driver, args.page_name, args.item_name)
+                run_iteration(driver, page_name, item_name)
                 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Vote submitted.")
 
             except WebDriverException as e:
