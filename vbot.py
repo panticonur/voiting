@@ -85,7 +85,7 @@ def main() -> None:
                 options = webdriver.ChromeOptions()
                 # options.add_argument("--headless")
                 driver = webdriver.Chrome(options=options)
-                print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Chrome")
+                print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Open Chrome")
                 driver.set_window_position(args.move_window, 0)
 
                 run_iteration(driver, args.page_name, args.item_name)
