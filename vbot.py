@@ -1,4 +1,5 @@
 import argparse
+import re
 import time
 
 from selenium import webdriver
@@ -68,7 +69,24 @@ def run_iteration(driver, page_name: str, item_name: str) -> None:
     except Exception:
         driver.execute_script("arguments[0].click();", button)
 
-    time.sleep(8)
+    time.sleep(4)
+
+    result_xpath = (
+        f"//*[contains(normalize-space(.), \"{item_name}\")"
+        f" and contains(., 'Stimmen)')"
+        f" and not(.//*[contains(normalize-space(.), \"{item_name}\") and contains(., 'Stimmen)')])]"
+    )
+    votes = None
+    try:
+        result_element = wait.until(EC.presence_of_element_located((By.XPATH, result_xpath)))
+        match = re.search(r"\((\d+)\s+Stimmen\)", result_element.text)
+        if match:
+            votes = int(match.group(1))
+        print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Votes for '{item_name}': {votes}")
+    except Exception as e:
+        print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Could not read vote count: {e}")
+
+    time.sleep(4)
     driver.quit()
 
 def main() -> None:
