@@ -11,6 +11,19 @@ from selenium.common.exceptions import WebDriverException
 def run_iteration(driver, page_name: str, item_name: str) -> None:
     driver.get(page_name)
     wait = WebDriverWait(driver, 20)
+
+    button = wait.until(EC.element_to_be_clickable((
+        By.XPATH,
+        "//button[normalize-space()='Direkt zur Abstimmung']"
+        " | //input[(@type='button' or @type='submit') and @value='Direkt zur Abstimmung']"
+        " | //*[@role='button' and normalize-space()='Direkt zur Abstimmung']"
+        " | //a[normalize-space()='Direkt zur Abstimmung']",
+    )))
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", button)
+    try:
+        button.click()
+    except Exception:
+        driver.execute_script("arguments[0].click();", button)
     
     radio_locators = [
         (By.CSS_SELECTOR, f"input[type='radio'][name='{item_name}']"),
@@ -70,10 +83,9 @@ def main() -> None:
             try:
                 options = webdriver.ChromeOptions()
                 # options.add_argument("--headless")
-                print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] ChromeOptions")
                 driver = webdriver.Chrome(options=options)
                 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Chrome")
-                driver.set_window_position(-500, 0)
+                driver.set_window_position(1800, 0)
 
                 run_iteration(driver, args.page_name, args.item_name)
                 print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Vote submitted.")
