@@ -1,5 +1,5 @@
 #!/bin/bash
 cd -- "$(dirname "$0")"
 python3 vbot.py \
-    --interval=3 \
-    --move_window=1900
+    --interval=4 \
+    --move_window=2100
