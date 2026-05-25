@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"C:\\\\Users\\\\admin\\\\Desktop\\\\vbot\" log --oneline -5)",
+      "Bash(git -C \"C:\\\\Users\\\\admin\\\\Desktop\\\\vbot\" add docs/dialog.md)",
+      "Bash(git -C \"C:\\\\Users\\\\admin\\\\Desktop\\\\vbot\" commit -m \"docs: save Claude dialog about vbot development\")"
+    ]
+  }
+}
