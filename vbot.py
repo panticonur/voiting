@@ -85,6 +85,7 @@ def run_iteration(driver, page_name: str, item_name: str) -> None:
     time.sleep(10)
     driver.quit()
 
+
 def main() -> None:
     page_name = "https://tafel-oesterreich.at/voting-2026/"
     item_name = "Integrationstreffen 50+ (Neki)"
